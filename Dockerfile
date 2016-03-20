@@ -24,7 +24,7 @@ RUN \
     ln -s /usr/local/go/bin/$f /usr/bin/$f ; \
   done
 
-# We install the building tools
+# We install the package building tools
 RUN \
   apt-get update -y && \
   apt-get install dpkg-dev git debhelper -y && \
