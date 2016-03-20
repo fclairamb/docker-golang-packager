@@ -1,0 +1,15 @@
+#!/bin/sh
+
+export GOPATH=$HOME/.go
+
+if [ ! -d "$GOPATH" ]; then
+	echo "Creating local GOPATH in ${GOPATH}"
+	mkdir -p "$GOPATH"
+fi
+
+grep -q "GOPATH=" ~/.bashrc
+if [ "$?" != "0" ]; then
+	echo "Modifying ~/.bashrc to add GOPATH"
+	echo "export GOPATH=${GOPATH}" >>~/.bashrc
+	echo "export PATH=\$PATH:${GOPATH}/bin" >>~/.bashrc
+fi
