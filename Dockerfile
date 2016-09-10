@@ -1,5 +1,5 @@
 FROM debian:8
-ENV golang_version=1.6
+ENV golang_version=1.7.1
 USER root
 
 
