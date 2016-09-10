@@ -27,7 +27,7 @@ RUN \
 # We install the package building tools
 RUN \
   apt-get update -y && \
-  apt-get install dpkg-dev git debhelper -y && \
+  apt-get install dpkg-dev git debhelper dh-make -y && \
   rm -rf /var/cache/apt/archives/*
 
 # We run our custom script
