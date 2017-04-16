@@ -1,16 +1,15 @@
 FROM debian:8
-ENV golang_version=1.7.1
+ENV golang_version=1.8.1
 USER root
 
 
 # Basic tools
 RUN \
   apt-get update -y && \
-  apt-get install wget ca-certificates sudo -y && \
-  rm -rf /var/cache/apt/archives/*
-
-# Sudo
-RUN \
+  apt-get install -y \
+  wget ca-certificates sudo \
+  dpkg-dev git debhelper dh-make && \
+  rm -rf /var/cache/apt/archives/* && \
   useradd -d /home/builder -u 1000 -m -s /bin/bash builder && \
   echo "builder ALL= NOPASSWD: ALL" >>/etc/sudoers
 
@@ -24,15 +23,9 @@ RUN \
     ln -s /usr/local/go/bin/$f /usr/bin/$f ; \
   done
 
-# We install the package building tools
-RUN \
-  apt-get update -y && \
-  apt-get install dpkg-dev git debhelper dh-make -y && \
-  rm -rf /var/cache/apt/archives/*
-
 # We run our custom script
-COPY bin/go-prepare-env /usr/bin/go-prepare-env
+# Since go 1.8 it's not necessary anymore. GOPATH has a default value of ~/go
+#COPY bin/go-prepare-env /usr/bin/go-prepare-env
+#RUN /usr/bin/go-prepare-env
 
 USER builder
-
-RUN /usr/bin/go-prepare-env
