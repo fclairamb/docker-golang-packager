@@ -1,7 +1,6 @@
-FROM debian:8
-ENV golang_version=1.8.1
+FROM debian:9
+ENV golang_version=1.8.3
 USER root
-
 
 # Basic tools
 RUN \
@@ -22,10 +21,3 @@ RUN \
   for f in `ls /usr/local/go/bin/* | xargs -n1 basename` ; do \
     ln -s /usr/local/go/bin/$f /usr/bin/$f ; \
   done
-
-# We run our custom script
-# Since go 1.8 it's not necessary anymore. GOPATH has a default value of ~/go
-#COPY bin/go-prepare-env /usr/bin/go-prepare-env
-#RUN /usr/bin/go-prepare-env
-
-USER builder
